@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="view_master_materials_tree" model="ir.ui.view">
+			<field name="name">master.materials.tree</field>
+			<field name="model">master.materials</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" required="1"/>
+					<field name="code" required="1"/>
+					<field name="type" required="1"/>
+					<field name="price" required="1"/>
+					<field name="supplier_id" required="1" options="{'no_open':True,'no_create':True}"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_master_materials_form" model="ir.ui.view">
+			<field name="name">master.materials.form</field>
+            <field name="model">master.materials</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+            	<form string="Master Material">
+					<sheet>
+						<div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <div>
+                            <group>
+                                <group>
+									<field name="code" required="1"/>
+									<field name="type" required="1"/>
+									<field name="price" required="1"/>
+									<field name="supplier_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                            	</group>
+                            </group>
+                        </div>
+					</sheet>
+				</form>
+            </field>
+        </record>
+
+		<record id="master_materials_filter" model="ir.ui.view">
+            <field name="name">master.materials.filter</field>
+            <field name="model">master.materials</field>
+            <field name="arch" type="xml">
+                <search string="Type">
+                    <filter string="Fabric Type" name="filter_by_fabric_type" domain="[('type','=','fabric')]" />
+                    <filter string="Jeans Type" name="filter_by_jeans_type" domain="[('type','=','jeans')]" />
+                    <filter string="Cotton Type" name="filter_by_cotton_type" domain="[('type','=','cotton')]" />
+                </search>
+            </field>
+        </record>
+		
+		<record id="action_master_materials" model="ir.actions.act_window">
+            <field name="name">Master Materials</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">master.materials</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Record of Materials
+                </p><p>
+                Click the Create button to add a new Record of Materials
+                </p>
+            </field>
+        </record>
+
+		<menuitem id="master_materials_top_menu" name="Master" sequence="1" web_icon="master_materials,static/src/img/Asset 1.png"/>
+		<menuitem id="master_materials_sub_menuitem" name="Master" parent="master_materials_top_menu" sequence="1"/>
+		<menuitem id="master_materials_menuitem" parent="master_materials_sub_menuitem" sequence="1" action="action_master_materials"/>
+	</data>
+</odoo>
